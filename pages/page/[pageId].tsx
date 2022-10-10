@@ -1,10 +1,10 @@
-import type { NextPage } from 'next'
+import type { GetServerSidePropsContext, NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
-import { Base } from '../components/base'
-import styles from '../styles/Home.module.css'
+import { Base } from '../../components/base'
+import styles from '../../styles/Home.module.css'
 
-const Home: NextPage<{data: any}> = ({data}) => {
+const Page: NextPage<{data: any}> = ({data}) => {
   return (
     <div className={styles.container}>
       <Head>
@@ -15,7 +15,7 @@ const Home: NextPage<{data: any}> = ({data}) => {
 
       <main className={styles.main}>
         <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
+          Page
         </h1>
 
         {data.results.map((resultElement: any, index: number) => {
@@ -42,10 +42,12 @@ const Home: NextPage<{data: any}> = ({data}) => {
   )
 }
 
-export const getServerSideProps = async () => {
-  const data = await (await fetch('http://localhost:3000/api/hello')).json();
+export const getServerSideProps = async (context: GetServerSidePropsContext) => {
+  const {pageId} = context.query;
+  const response = await fetch(`http://localhost:3000/api/hello/${pageId}`);
+  const data = await response.json();
   return {
     props: {data}
   }
 }
-export default Home
+export default Page
