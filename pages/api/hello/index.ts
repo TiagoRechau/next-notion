@@ -9,6 +9,7 @@ export default async function handler(
   res: NextApiResponse
 ) {
   const pageId = process.env.NOTION_PAGE_ID;
-  const response = await client.blocks.children.list({ block_id: pageId as string});
-  res.status(200).json(response)
+  const blocks = await client.blocks.children.list({ block_id: pageId as string});
+  const page = await client.pages.retrieve({ page_id: pageId as string});
+  res.status(200).json({page, blocks})
 }

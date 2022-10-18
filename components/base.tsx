@@ -1,3 +1,5 @@
+import { Paragraph } from "./elements/paragraph";
+
 export const Base = ({
     type,
     ...otherProps
@@ -13,7 +15,7 @@ export const Base = ({
         case "heading_3":
             return <h3>{otherProps[type].rich_text?.[0]?.plain_text}</h3>;
         case "paragraph":
-            return <p>{otherProps[type].rich_text?.[0]?.content}</p>;
+            return <Paragraph {...otherProps[type]}/>
         case 'child_page': 
             return <a href={`/page/${otherProps.id}`}>{otherProps[type].title}</a>
         default:
