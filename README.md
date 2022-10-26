@@ -3,18 +3,30 @@ This is a Next.js template for your website, using Notion as your content editor
 
 ## Getting Started
 
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
+1. Create a notion personal integration
+2. Add the integration to the page that will be used has your website homepage
+3. Add an .env.production with the keys
+```
+NOTION_ACCESS_TOKEN=<YOUR_NOTION_TOKEN>
+NOTION_PAGE_ID=<YOUR_NOTION_MAIN_PAGE_ID>
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### How to get the Notion Access Token?
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+1. Go to https://www.notion.so/my-integrations
+2. Create new integration with *Read Content* permission
+3. Get it from **Internal Integration Token**
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+### How to get Page ID?
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+You can fetch the Page ID from the URL of that page in your Notion app. If the Page URL is https://www.notion.so/your-worksapce/XXX?v=YYY&p=ZZZ, then the ID of the Page would be ZZZ. **Make sure to remove the hyphens from the page ID.**
+
+### How to add the tool as a connection to the notion page?
+
+1. Go to the page you want to have as main page
+2. Click on the 3 dots on top right
+3. Click add connection and search for the name of the integration you created before
+
+
+
+

@@ -1,8 +1,11 @@
-import type { GetServerSidePropsContext, NextPage } from "next";
+import type {
+    GetServerSideProps,
+    GetServerSidePropsContext,
+    NextPage,
+} from "next";
 import { Base } from "../components/base";
 
 const Page: NextPage<{ data: any }> = ({ data }) => {
-    console.log(data);
     return (
         <main>
             <h1>{data.page.properties.title.title?.[0]?.plain_text}</h1>
@@ -17,8 +20,11 @@ const Page: NextPage<{ data: any }> = ({ data }) => {
     );
 };
 
-export const getServerSideProps = async () => {
-    const response = await fetch(`http://localhost:3000/api/hello`);
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+    const protocol = req.headers["x-forwarded-proto"] || "http";
+    const baseUrl = req ? `${protocol}://${req.headers.host}` : "";
+
+    const response = await fetch(`${baseUrl}/api/hello`);
     const data = await response.json();
     return {
         props: { data },
